@@ -15,10 +15,10 @@ const RecipeList = (props) => {
         <Container maxWidth="lg">
             <Box sx={{margin: 'auto', width: "100%", padding: 4}}>
                 <Typography variant="h4" paddingY={4}>All Recipes</Typography>
-                <Grid container spacing={2}>
+                <Grid container spacing={2} justifyContent="center">
                     {/*Mapping of individual dish to cards*/}
                     {props.dishes.map((dish) => (
-                        <Grid key={dish.id} item xs={4}>
+                        <Grid key={dish.id} item md={4}>
                             <Card elevation={3} sx={{ maxWidth: 300}}>
                                 <CardContent>
                                     <Typography gutterBottom variant="h5" component="div">
@@ -32,7 +32,12 @@ const RecipeList = (props) => {
                                     </Typography>
                                 </CardContent>
                                 <CardActions>
-                                    <Link href={`/recipes/${dish.id}`} passHref>
+                                    <Link href={{
+                                        pathname: '/recipes/[id]',
+                                        query: {
+                                            id: dish.id
+                                            }
+                                    }} passHref>
                                         <Button size="small">Check Dish</Button>
                                     </Link>
                                 </CardActions>
