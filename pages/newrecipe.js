@@ -5,10 +5,10 @@ import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import Add from '@mui/icons-material/Add'
 import Divider from "@mui/material/Divider";
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
+import axios from 'axios';
 
 const NewRecipe = () => {
 
@@ -16,29 +16,72 @@ const NewRecipe = () => {
     const [ingredientList, setIngredientList] = React.useState([""]);
     const [instructionsList, setInstructionsList] = React.useState([""]);
 
+     //Handles change of input form values
+    const handleIngredientChange = (e, index) =>{
+        const { value }  = e.target;
+        const ingredList = [...ingredientList];
+        ingredList[index] = value;
+        setIngredientList(ingredList);
+    };
 
     //Handles adding of new ingredient input forms
     const handleAddIngredient = () => {
         setIngredientList([...ingredientList, ""]);
-    }
+    };
     //Handles removing of ingredient input forms
     const handleRemoveIngredient = (index) => {
         const ingredList = [...ingredientList];
         ingredList.splice(index, 1);
         setIngredientList(ingredList);
-    }
+    };
 
     //Handles adding of new ingredient input forms
     const handleAddInstructions = () => {
         setInstructionsList([...instructionsList, ""]);
-    }
+    };
     //Handles removing of ingredient input forms
     const handleRemoveInstructions = (index) => {
         const instrucList = [...instructionsList];
         instrucList.splice(index, 1);
         setInstructionsList(instrucList);
-    }
+    };
     
+    const handleInstructionsChange = (e, index) =>{
+        const { value }  = e.target;
+        const instrucList = [...instructionsList];
+        instrucList[index] = value;
+        setInstructionsList(instrucList);
+    };
+
+    const handleSumbitRecipe = (e) => {
+        e.preventDefault();
+        const recipeTitle = e.target[0].value;
+        const recipeAuthor = "User";
+        const recipeDesc = e.target[1].value;
+        const recipeServings = e.target[3].value;
+        const dateCreated = new Date().toISOString();
+        const dateUpdated = new Date().toISOString();
+        const ingredList = [...ingredientList];
+        const instrucList = [...instructionsList];
+        const recipe = {
+            title: recipeTitle,
+            author: recipeAuthor,
+            description: recipeDesc,
+            servings: recipeServings,
+            date_created: dateCreated,
+            date_updated: dateUpdated,
+            ingredients: ingredList,
+            instructions: instrucList
+        }
+        axios.post('http://localhost:4000/dishes', recipe)
+            .then((response) =>{
+                console.log(response);
+            })
+            .catch((error) =>{
+                console.log(error);
+            })
+    }
+
     return(
         <Container maxWidth="lg">
             <Box sx={{margin: 'auto', width: "100%", padding: 4}}>
@@ -50,7 +93,7 @@ const NewRecipe = () => {
                 <Divider sx={{marginBottom: 2}}/>
                 <Box
                     component="form" 
-                    noValidate
+                    onSubmit={handleSumbitRecipe}
                     autoComplete="off"
                     sx={{
                     margin: 'auto',
@@ -61,16 +104,18 @@ const NewRecipe = () => {
                     <Typography variant="subtitle" paddingY={2} component="div" sx={{fontWeight: 'bold'}} color="red">* - Required</Typography>
                     <TextField
                         required
-                        id="recipe-title"
+                        id="recipeTitle"
                         label="Recipe Title"
+                        name="recipeTitle"
                         variant="filled"
                         fullWidth
                         margin="normal"
                     />
                     <TextField
                         required
-                        id="recipe-description"
+                        id="recipeDescription"
                         label="Recipe Description"
+                        name="recipeDescription"
                         multiline
                         variant="filled"
                         fullWidth
@@ -78,8 +123,9 @@ const NewRecipe = () => {
                         />
                     <TextField
                         required
-                        id="recipe-servings"
+                        id="recipeServings"
                         label="Serving Size"
+                        name="recipeServings"
                         variant="filled"
                         fullWidth
                         type="number"
@@ -89,12 +135,13 @@ const NewRecipe = () => {
                         <Typography variant="subtitle" paddingY={2} component="div" sx={{fontWeight: 'bold'}} color="red">* - Required</Typography>
                     {ingredientList.map((ingredientForm, index) =>(
                         <React.Fragment>
-                            <Stack alignItems='center' direction={{xs: "column", md: "row"}} spacing={2} sx={{display: {md: 'flex'}}}>
+                            <Stack alignItems='center' key={`ingred${index}`} direction={{xs: "column", md: "row"}} spacing={2} sx={{display: {md: 'flex'}}}>
                                 <TextField
                                 required
                                 name={`ingredient${index}`}
-                                id={`recipe-ingredient${index}`}
+                                id={`recipeIngredient${index}`}
                                 label={`Ingredient No.${index+1}`}
+                                onChange={(e) => handleIngredientChange(e, index)}
                                 variant="filled"
                                 margin="normal"
                                 sx={{
@@ -120,12 +167,13 @@ const NewRecipe = () => {
                     <Typography variant="subtitle" paddingY={2} component="div" sx={{fontWeight: 'bold'}} color="red">* - Required</Typography>
                     {instructionsList.map((instructionForm, index) =>(
                         <React.Fragment>
-                            <Stack alignItems='center' direction={{xs: "column", md: "row"}} spacing={2} sx={{display: {md: 'flex'}}}>
+                            <Stack alignItems='center' key={`instruct${index}`} direction={{xs: "column", md: "row"}} spacing={2} sx={{display: {md: 'flex'}}}>
                                 <TextField
                                 required
-                                name={`ingredient${index}`}
-                                id={`recipe-instruction${index}`}
+                                name={`instruction${index}`}
+                                id={`recipeInstruction${index}`}
                                 label={`Instruction No.${index+1}`}
+                                onChange={(e) => handleInstructionsChange(e, index)}
                                 variant="filled"
                                 margin="normal"
                                 sx={{
@@ -147,10 +195,8 @@ const NewRecipe = () => {
                             </Stack>
                         </React.Fragment>
                     ))}
-                    {JSON.stringify(ingredientList)}
-                    {JSON.stringify(instructionsList)}
                     <Box paddingY={2}>
-                        <Button size="large" variant="contained">
+                        <Button size="large" variant="contained" type="submit">
                             Submit Recipe
                         </Button>
                     </Box>

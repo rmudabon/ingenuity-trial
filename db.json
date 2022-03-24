@@ -1,27 +1,63 @@
 {
-    "dishes": [
-        {
-            "id": 1, 
-            "title": "Carbonara", 
-            "author": "User", 
-            "description": "Lorem ipsum",
-            "servings": 4,
-            "date_created": "2022-03-24",
-            "date_updated": "2022-03-24",
-            "ingredients": ["Pasta", "Mushrooms", "Cream"],
-            "instructions": ["Heat pasta water", "Saute pancetta/bacon and garlic", "Beat eggs and half of the cheese", "Cook pasta", "Toss pasta with pancetta/bacon", "Add the beaten egg mixture"]
-        },
-        {
-            "id": 2, 
-            "title": "Spaghetti", 
-            "author": "User 2", 
-            "description": "Lorem ipsum Dolores",
-            "servings": 4,
-            "date_created": "2022-03-25",
-            "date_updated": "2022-03-25",
-            "ingredients": ["Pasta", "Tomatoes", "Cream"],
-            "instructions": ["Heat pasta water", "Saute pancetta/bacon and garlic", "Beat eggs and half of the cheese", "Cook pasta", "Toss pasta with pancetta/bacon", "Add the beaten egg mixture"]
-        }
-
-    ]
+  "dishes": [
+    {
+      "id": 1,
+      "title": "Carbonara",
+      "author": "User",
+      "description": "Lorem ipsum",
+      "servings": 4,
+      "date_created": "2022-03-24",
+      "date_updated": "2022-03-24",
+      "ingredients": [
+        "Pasta",
+        "Mushrooms",
+        "Cream"
+      ],
+      "instructions": [
+        "Heat pasta water",
+        "Saute pancetta/bacon and garlic",
+        "Beat eggs and half of the cheese",
+        "Cook pasta",
+        "Toss pasta with pancetta/bacon",
+        "Add the beaten egg mixture"
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Spaghetti",
+      "author": "User 2",
+      "description": "Lorem ipsum Dolores",
+      "servings": 4,
+      "date_created": "2022-03-25",
+      "date_updated": "2022-03-25",
+      "ingredients": [
+        "Pasta",
+        "Tomatoes",
+        "Cream"
+      ],
+      "instructions": [
+        "Heat pasta water",
+        "Saute pancetta/bacon and garlic",
+        "Beat eggs and half of the cheese",
+        "Cook pasta",
+        "Toss pasta with pancetta/bacon",
+        "Add the beaten egg mixture"
+      ]
+    },
+    {
+      "title": "Fetuccine",
+      "author": "User",
+      "description": "Yes",
+      "servings": "2",
+      "date_created": "2022-03-24T13:56:19.338Z",
+      "date_updated": "2022-03-24T13:56:19.338Z",
+      "ingredients": [
+        "4 cups of sugar"
+      ],
+      "instructions": [
+        "Mix and server"
+      ],
+      "id": 3
+    }
+  ]
 }
