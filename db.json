@@ -1,0 +1,15 @@
+{
+    "dishes": [
+        {
+            "id": 1, 
+            "title": "Carbonara", 
+            "author": "User", 
+            "description": "Lorem ipsum",
+            "servings": 4,
+            "date_created": "2022-03-24",
+            "date_updated": "2022-03-24",
+            "ingredients": "['Pasta', 'Mushrooms', 'Cream']",
+            "instructions": "['Heat pasta water', 'Saute pancetta/bacon and garlic', 'Beat eggs and half of the cheese', 'Cook pasta', 'Toss pasta with pancetta/bacon', 'Add the beaten egg mixture']"
+        }
+    ]
+}

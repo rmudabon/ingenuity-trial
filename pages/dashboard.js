@@ -30,7 +30,9 @@ const Dashboard = () => {
                                 </Typography>
                             </CardContent>
                             <CardActions>
-                                <Button size="small">Go Now</Button>
+                                <Link href="/recipes" passHref>
+                                  <Button size="small">Go Now</Button>
+                                </Link>
                             </CardActions>
                         </Card>
                     </Grid>
@@ -45,7 +47,9 @@ const Dashboard = () => {
                                 </Typography>
                             </CardContent>
                             <CardActions>
-                                <Button size="small">Go Now</Button>
+                                <Link href="/myrecipes" passHref>
+                                    <Button size="small">Go Now</Button>
+                                </Link>
                             </CardActions>
                         </Card>
                     </Grid>
@@ -60,7 +64,9 @@ const Dashboard = () => {
                                 </Typography>
                             </CardContent>
                             <CardActions>
-                                <Button size="small">Go Now</Button>
+                                <Link href="#" passHref>
+                                    <Button size="small">Go Now</Button>
+                                </Link>
                             </CardActions>
                         </Card>
                     </Grid>

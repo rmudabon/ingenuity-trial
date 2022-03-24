@@ -16,6 +16,7 @@ import { deepOrange } from '@mui/material/colors';
 
 //Constants for page labels
 const user_pages = ['Recipes', 'My Recipes'];
+const user_links = ['/recipe']
 const user_settings = ['Logout'];
 
 // Header for Page Navigation
@@ -23,10 +24,11 @@ const Header = () => {
     //Set hooks for setting display of pages and user settings menus
     const [anchorElPages, setAnchorElPages] = React.useState(null);
     const [anchorElUserSettings, setAnchorElUserSettings] = React.useState(null);
+    const [isLoggedIn, setLoggedIn] = React.useState(null);
     //Boolean values that determine if page or settings menu is opened
     const open_page = Boolean(anchorElPages)
     const open_settings = Boolean(anchorElUserSettings)
-
+    
     //Event handlers to facilitate display of pages and user settings menus
     const handleOpenPagesMenu = (event) => {
         setAnchorElPages(event.currentTarget);
@@ -91,11 +93,16 @@ const Header = () => {
                                 display: {xs: 'block', md: 'none'}
                             }}
                         >
-                            {user_pages.map((page) => (
-                                <MenuItem key={page} onClick={handleClosePagesMenu}>
-                                    <Typography textAlign="center">{page}</Typography>
+                            <Link href="/recipes" passHref>
+                                <MenuItem key={1} onClick={handleClosePagesMenu}>
+                                    <Typography textAlign="center">Recipes</Typography>
                                 </MenuItem>
-                            ))}
+                            </Link>
+                            <Link href="/myrecipes" passHref>
+                                <MenuItem key={2} onClick={handleClosePagesMenu}>
+                                    <Typography textAlign="center">My Recipes</Typography>
+                                </MenuItem>
+                            </Link>
                         </Menu>
                     </Box>
                     {/* Mobile Logo Text, only displays if device reaches XS viewport size */}
@@ -111,15 +118,24 @@ const Header = () => {
                     </Typography>  
                      {/* Desktop Menu, only displays if device reaches at least MD viewport size */}
                     <Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex'}}}>
-                        {user_pages.map((page) => (
+                        <Link href="/recipes" passHref>
                             <Button
-                                key={page}
+                                key={1}
                                 onClick={handleClosePagesMenu}
                                 sx={{my: 2, ml: 2,  color: 'white', display: 'block'}}
                             >
-                               <Typography>{page}</Typography> 
+                                <Typography>Recipes</Typography> 
                             </Button>
-                        ))}
+                        </Link>
+                        <Link href="/myrecipes" passHref>
+                            <Button
+                                key={1}
+                                onClick={handleClosePagesMenu}
+                                sx={{my: 2, ml: 2,  color: 'white', display: 'block'}}
+                            >
+                                <Typography>My Recipes</Typography> 
+                            </Button>
+                        </Link>
                     </Box>
                     {/* User Settings Menu*/}
                     <Box sx={{flexGrow: 0}}>
