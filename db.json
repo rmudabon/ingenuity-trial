@@ -1,17 +1,16 @@
 {
   "dishes": [
     {
-      "id": 1,
       "title": "Carbonara",
       "author": "User",
       "description": "Lorem ipsum",
-      "servings": 4,
+      "servings": "4",
       "date_created": "2022-03-24",
-      "date_updated": "2022-03-24",
+      "date_updated": "2022-03-25T13:57:52.834Z",
       "ingredients": [
         "Pasta",
         "Mushrooms",
-        "Cream"
+        "Cream Stew"
       ],
       "instructions": [
         "Heat pasta water",
@@ -20,7 +19,8 @@
         "Cook pasta",
         "Toss pasta with pancetta/bacon",
         "Add the beaten egg mixture"
-      ]
+      ],
+      "id": 1
     },
     {
       "id": 2,

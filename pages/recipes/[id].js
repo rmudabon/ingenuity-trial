@@ -1,10 +1,12 @@
 import React from "react";
+import Link from 'next/link';
 
 import Button from '@mui/material/Button';
 import Typography from "@mui/material/Typography";
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
-import Divider from '@mui/material/Divider'
+import Divider from '@mui/material/Divider';
+import Stack from '@mui/material/Stack';
 
 const Recipe = (props) => {
     const dish = props.props.dish;
@@ -37,6 +39,17 @@ const Recipe = (props) => {
                             </li>
                         ))}
                     </ol>
+                <Stack direction={{xs: 'column', md: 'row'}} spacing={2} justifyContent="center">
+                    <Link href={{
+                        pathname: '/recipes/[id]/edit',
+                        query: {
+                            id: dish.id
+                            }
+                    }} passHref>
+                        <Button variant="outlined">Edit Recipe</Button>
+                    </Link>
+                    <Button variant="outlined" color="error">Delete Recipe</Button>
+                </Stack>
             </Box>
         </Container>
     )
