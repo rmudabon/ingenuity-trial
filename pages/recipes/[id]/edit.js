@@ -78,6 +78,7 @@ const EditRecipe = (props) => {
         axios.put(`http://localhost:4000/dishes/${dish.id}`, recipe)
             .then((response) =>{
                 console.log(response);
+
             })
             .catch((error) =>{
                 console.log(error);

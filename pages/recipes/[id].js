@@ -1,5 +1,6 @@
 import React from "react";
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 import Button from '@mui/material/Button';
 import Typography from "@mui/material/Typography";
@@ -7,15 +8,43 @@ import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import Stack from '@mui/material/Stack';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import axios from 'axios';
 
 const Recipe = (props) => {
+    const router = useRouter();
     const dish = props.props.dish;
     const date_updated = new Date(dish.date_updated);
-    console.log(dish)
+
+    const [openDeleteAlert, setOpenDeleteAlert] = React.useState(false);
+
+    const handleOpenDeleteAlert = () => {
+        setOpenDeleteAlert(true);
+    }
+
+    const handleCloseDeleteAlert = () => {
+        setOpenDeleteAlert(false);
+    }
+
+    const handleDelete = () => {
+        axios.delete(`http://localhost:4000/dishes/${dish.id}`)
+            .then((response) =>{
+                console.log(response);
+                router.push('/recipes');
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    }
+
     return(
         <Container maxWidth="lg">
             <Box sx={{margin: 'auto', width: '100%', padding: 4}}>
-                <Typography variant="h4" paddingY={4} component="div" textAlign='center'>{dish.title}</Typography>
+                <Typography variant="h4" paddingY={2} component="div" textAlign='center' sx={{fontWeight: "bold"}}>{dish.title}</Typography>
                 <Typography variant="body2" marginBottom={2}>By {dish.author}</Typography>
                 <Typography variant="body2" marginBottom={2}>Last Updated on: {date_updated.toDateString()} </Typography>
                 <Divider/>
@@ -48,8 +77,25 @@ const Recipe = (props) => {
                     }} passHref>
                         <Button variant="outlined">Edit Recipe</Button>
                     </Link>
-                    <Button variant="outlined" color="error">Delete Recipe</Button>
+                    <Button variant="outlined" color="error" onClick={handleOpenDeleteAlert}>Delete Recipe</Button>
                 </Stack>
+                <Dialog
+                    open={openDeleteAlert}
+                    onCLose={handleCloseDeleteAlert}
+                >
+                    <DialogTitle id="delete-recipe-title">
+                        {"Delete this recipe?"}
+                    </DialogTitle>
+                    <DialogContent>
+                        <DialogContentText id="delete-recipe-description">
+                            This action cannot be undone!
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={handleCloseDeleteAlert}>Cancel</Button>
+                        <Button onClick={handleDelete}>Agree</Button>
+                    </DialogActions>
+                </Dialog>
             </Box>
         </Container>
     )
