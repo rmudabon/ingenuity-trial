@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 
 import Box from '@mui/material/Box';
@@ -11,15 +11,21 @@ import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 
 const Dashboard = () => {
-    const [adminUser, isAdminUser] = React.useState(null);
+    const [userData, setUserData] = useState({isLoggedin: false, name: '', isAdmin: false});
+
+    useEffect(() => {
+        const userDat = JSON.parse(sessionStorage.getItem("user"));
+        setUserData(userDat);
+        console.log(userData.isLoggedin === "false");
+    }, [])
 
     return(
         <Container maxWidth="lg">
             <Box sx={{margin: 'auto', width: '100%', padding: 4}}>
-                <Typography variant="h4">Welcome back, User!</Typography>
+                <Typography variant="h4">Welcome back, {userData.name}!</Typography>
                 <Typography variant="h5" sx={{mt: 5, mb: 5}}>What will you do today?</Typography>
-                <Grid container spacing={2}>
-                    <Grid item xs={4}>
+                <Grid container spacing={2} justifyContent="center">
+                    <Grid item md={4}>
                         <Card elevation={3} sx={{ maxWidth: 300}}>
                             <CardContent>
                                 <Typography gutterBottom variant="h5" component="div">
@@ -36,8 +42,8 @@ const Dashboard = () => {
                             </CardActions>
                         </Card>
                     </Grid>
-                    <Grid item xs={4}>
-                        <Card elevation={3} sx={{ maxWidth: 300}}>
+                    <Grid item md={4}>
+                        <Card elevation={3} sx={{ maxWidth: 300 }}>
                             <CardContent>
                                 <Typography gutterBottom variant="h5" component="div">
                                     My Recipes
@@ -53,7 +59,7 @@ const Dashboard = () => {
                             </CardActions>
                         </Card>
                     </Grid>
-                    <Grid item xs={4}>
+                    <Grid item md={4}>
                         <Card elevation={3} sx={{ maxWidth: 300}}>
                             <CardContent>
                                 <Typography gutterBottom variant="h5" component="div">

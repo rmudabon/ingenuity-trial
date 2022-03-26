@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from "next/link";
+import { useRouter } from 'next/router';
 
 // Material-UI Components Imported
 import AppBar from '@mui/material/AppBar';
@@ -9,61 +10,60 @@ import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import IconButton from '@mui/material/IconButton';
 import MenuItem from '@mui/material/MenuItem';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import { Container, Typography } from '@mui/material';
-import { deepOrange } from '@mui/material/colors';
+import Container from '@mui/material/Container';
+import Typography from '@mui/material/Typography';
+import AvatarMenu from '../components/avatar_menu';
 
-//Constants for page labels
-const user_pages = ['Recipes', 'My Recipes'];
-const user_links = ['/recipe']
-const user_settings = ['Logout'];
 
 // Header for Page Navigation
 const Header = () => {
+    const router = useRouter();
     //Set hooks for setting display of pages and user settings menus
-    const [anchorElPages, setAnchorElPages] = React.useState(null);
-    const [anchorElUserSettings, setAnchorElUserSettings] = React.useState(null);
-    const [isLoggedIn, setLoggedIn] = React.useState(null);
+    const [anchorElPages, setAnchorElPages] = useState(null);
+    const [userData, setUserData] = useState({isLoggedin: false, name: '', isAdmin: false});
     //Boolean values that determine if page or settings menu is opened
-    const open_page = Boolean(anchorElPages)
-    const open_settings = Boolean(anchorElUserSettings)
+    const open_page = Boolean(anchorElPages);
     
     //Event handlers to facilitate display of pages and user settings menus
     const handleOpenPagesMenu = (event) => {
         setAnchorElPages(event.currentTarget);
     }
 
-    const handleOpenUserSettingsMenu = (event) => {
-        setAnchorElUserSettings(event.currentTarget);
-    }
 
     const handleClosePagesMenu = () => {
         setAnchorElPages(null);
     }
 
-    const handleCloseUserSettingsMenu = () => {
-        setAnchorElUserSettings(null);
-    }
+
+   useEffect(() => {
+        const userDat = JSON.parse(sessionStorage.getItem("user"));
+        setUserData(userDat);
+        console.log(userData.isLoggedin === "false");
+    }, [router.asPath])
 
     return(
         <AppBar position="static">
             <Container maxWidth="xl">
                 <ToolBar>
                      {/* Desktop Logo Text, only displays if device reaches MD viewport size */}
-                    <Typography
-                        variant="h6"
-                        component="div"
-                        noWrap
-                        sx={{
-                            display: {xs: 'none', md: 'flex'}
-                        }}
-                    >
-                    RECIPE DB
-                    </Typography>  
+                    <Link href="/" passHref>
+                        <Button variant="text" color="inherit"  sx={{ display: {xs: 'none', md: 'flex'}}} >
+                            <Typography
+                                variant="h6"
+                                component="div"
+                                noWrap
+                                fontWeight="bold"
+
+                            >
+                            RECIPE DB
+                            </Typography>  
+                        </Button>
+                    </Link>
                     {/* Mobile Menu, only displays if device reaches XS viewport size */}
-                    <Box sx={{ flexGrow: 1, display: {xs: 'flex', md: 'none'}}}>
-                         {/* Mobile Menu Icon that pops up the Pages popup when clicked*/}
+                    <Box sx={{ flexGrow: 0, display: {xs: 'flex', md: 'none'}}}>
+                    {userData.isLoggedin === "true" ? (
+                        <React.Fragment>
                         <IconButton
                             size="medium"
                             aria-haspopup="true"
@@ -74,7 +74,6 @@ const Header = () => {
                         >
                             <MenuIcon/>
                         </IconButton>
-                        {/* Pages Popup for Mobile Devices*/}
                         <Menu
                             id="menu-bar"
                             anchorEl={anchorElPages}
@@ -104,20 +103,25 @@ const Header = () => {
                                 </MenuItem>
                             </Link>
                         </Menu>
+                        </React.Fragment>) : null }
                     </Box>
                     {/* Mobile Logo Text, only displays if device reaches XS viewport size */}
-                    <Typography
-                        variant="h6"
-                        component="div"
-                        noWrap
-                        sx={{
-                            display: {xs: 'flex', md: 'none'}
-                        }}
-                    >
-                    RECIPE DB
-                    </Typography>  
+                    <Link href="/" passHref>
+                        <Button variant="text" color="inherit" sx={{flexGrow: 1, display: {xs: 'flex', md: 'none'}}}>
+                            <Typography
+                                variant="h6"
+                                component="div"
+                                noWrap
+                                fontWeight="bold"
+                            >
+                            RECIPE DB
+                            </Typography>
+                        </Button>  
+                    </Link>
                      {/* Desktop Menu, only displays if device reaches at least MD viewport size */}
                     <Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex'}}}>
+                    {userData.isLoggedin === "true" ? (
+                        <React.Fragment>
                         <Link href="/recipes" passHref>
                             <Button
                                 key={1}
@@ -136,16 +140,17 @@ const Header = () => {
                                 <Typography>My Recipes</Typography> 
                             </Button>
                         </Link>
+                        </React.Fragment> ) 
+                        : null}
                     </Box>
                     {/* User Settings Menu*/}
                     <Box sx={{flexGrow: 0}}>
-                        {/* Avatar and Icon that pops up the User Settings popup when clicked*/}
-                        <IconButton onClick={handleOpenUserSettingsMenu}>
+                        {userData.isLoggedin === "true" ? <AvatarMenu name={userData.name}/> : null}
+                        {/* <IconButton onClick={handleOpenUserSettingsMenu}>
                             <Avatar alt="User" variant="square" sx={{ bgcolor: deepOrange[500]}}>
                                 U
                             </Avatar>
                         </IconButton>
-                        {/* Settings Popup*/}
                         <Menu
                             sx={{mt: '50px'}}
                             id="menu-settings"
@@ -167,7 +172,7 @@ const Header = () => {
                                     <Typography textAlign="center">{setting}</Typography>
                                 </MenuItem>
                             ))}
-                        </Menu>
+                        </Menu> */}
                     </Box>
                 </ToolBar>
             </Container>
