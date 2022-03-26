@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Link from "next/link";
+import { useRouter } from 'next/router';
 
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
@@ -11,7 +11,7 @@ import Stack from '@mui/material/Stack';
 import axios from 'axios';
 
 const EditRecipe = (props) => {
-
+    const router = useRouter();
     const dish = props.props.dish;
 
     //Constants handling ingredients and instructions list
@@ -87,10 +87,17 @@ const EditRecipe = (props) => {
         axios.put(`http://localhost:4000/dishes/${dish.id}`, recipe)
             .then((response) =>{
                 console.log(response);
-
+                router.push({
+                    pathname: '/recipes',
+                    query: {openNotif: true, message: 'Recipe updated.'}
+                }, "/recipes")
             })
             .catch((error) =>{
                 console.log(error);
+                router.push({
+                    pathname: '/recipes',
+                    query: {openNotif: true, message: 'Recipe update failed.'}
+                }, "/recipes")
             })
     }
 

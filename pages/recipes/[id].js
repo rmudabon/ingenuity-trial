@@ -42,10 +42,17 @@ const Recipe = (props) => {
         axios.delete(`http://localhost:4000/dishes/${dish.id}`)
             .then((response) =>{
                 console.log(response);
-                router.push('/recipes');
+                router.push({
+                    pathname: '/recipes',
+                    query: {openNotif: true, message: 'Recipe deleted.'}
+                }, "/recipes")
             })
             .catch((error) => {
                 console.log(error);
+                router.push({
+                    pathname: '/recipes',
+                    query: {openNotif: true, message: 'Recipe deletion failed.'}
+                }, "/recipes")
             })
     }
 
@@ -85,7 +92,7 @@ const Recipe = (props) => {
                                 id: dish.id
                                 }
                         }} passHref>
-                            <Button variant="outlined">Edit Recipe</Button>
+                            <Button variant="outlined">Edit/Update Recipe</Button>
                         </Link>
                         <Button variant="outlined" color="error" onClick={handleOpenDeleteAlert}>Delete Recipe</Button>
                     </Stack>

@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import Link from "next/link";
 
 import Container from '@mui/material/Container';
@@ -11,9 +12,36 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Add from '@mui/icons-material/Add'
 import Fab from '@mui/material/Fab';
+import Close from '@mui/icons-material/Close';
+import IconButton from '@mui/material/IconButton';
+import Snackbar from '@mui/material/Snackbar';
 
 const RecipeList = (props) => {
+    const router = useRouter();
+    const msg = router.query.message;
+    const openStatus = router.query.openNotif;
+    const [message, setMessage] = useState("");
+    const [open, setOpen] = useState(false);
 
+    useEffect(() => {
+        setMessage(msg);
+        setOpen(openStatus);
+    }, [router.asPath]);
+    
+    const handleNotificationClose = () => {
+        setOpen(false);
+    }
+
+    const action = (
+        <IconButton
+            size="small"
+            aria-label="close"
+            color="inherit"
+            onClick={handleNotificationClose}
+        >
+            <Close fontSize="small"/>
+        </IconButton>
+    )
     return(
         <Container maxWidth="lg">
             <Box sx={{margin: 'auto', width: "100%", padding: 4}}>
@@ -70,7 +98,7 @@ const RecipeList = (props) => {
                         aria-label="add" 
                         sx={{
                         marginTop: 5,
-                        position: 'absolute',
+                        position: 'fixed',
                         bottom: 30,
                         right: 30,
                         display: {xs: 'flex', md: 'none'}
@@ -78,6 +106,12 @@ const RecipeList = (props) => {
                         <Add/>
                     </Fab>
                 </Link>
+                <Snackbar
+                open={open}
+                autoHideDuration={4000}
+                onClose={handleNotificationClose}
+                message={message}
+                action={action} />
             </Box>
         </Container>
     )

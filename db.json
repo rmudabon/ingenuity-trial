@@ -51,6 +51,81 @@
         "Dummy Inst"
       ],
       "id": 4
+    },
+    {
+      "title": "Test 2",
+      "author": "User",
+      "description": "Test Descr",
+      "servings": "4",
+      "date_created": "2022-03-26T13:39:28.565Z",
+      "date_updated": "2022-03-26T13:39:28.565Z",
+      "ingredients": [
+        "Garlic"
+      ],
+      "instructions": [
+        "Pineapple"
+      ],
+      "id": 5
+    },
+    {
+      "title": "Test 3",
+      "author": "User",
+      "description": "Description 3455",
+      "servings": "2",
+      "date_created": "2022-03-26T13:46:55.220Z",
+      "date_updated": "2022-03-26T13:46:55.220Z",
+      "ingredients": [
+        "Hei"
+      ],
+      "instructions": [
+        "Hoooo"
+      ],
+      "id": 6
+    },
+    {
+      "title": "Test 4 ",
+      "author": "User",
+      "description": "Ders",
+      "servings": "4",
+      "date_created": "2022-03-26T13:47:58.228Z",
+      "date_updated": "2022-03-26T13:47:58.228Z",
+      "ingredients": [
+        "Tsddf"
+      ],
+      "instructions": [
+        "asdsdsd"
+      ],
+      "id": 7
+    },
+    {
+      "title": "Open",
+      "author": "User",
+      "description": "64",
+      "servings": "5",
+      "date_created": "2022-03-26T13:51:15.762Z",
+      "date_updated": "2022-03-26T13:51:15.762Z",
+      "ingredients": [
+        "12323"
+      ],
+      "instructions": [
+        "232323"
+      ],
+      "id": 8
+    },
+    {
+      "title": "Gabi",
+      "author": "User",
+      "description": "Umaga",
+      "servings": "54",
+      "date_created": "2022-03-26T14:01:58.370Z",
+      "date_updated": "2022-03-26T14:10:34.734Z",
+      "ingredients": [
+        "Dasd"
+      ],
+      "instructions": [
+        "sdsdsd"
+      ],
+      "id": 10
     }
   ]
 }

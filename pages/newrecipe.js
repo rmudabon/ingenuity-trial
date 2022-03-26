@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import Link from "next/link";
 import { useRouter } from 'next/router';
 
 import Container from '@mui/material/Container';
@@ -88,9 +87,17 @@ const NewRecipe = () => {
         axios.post('http://localhost:4000/dishes', recipe)
             .then((response) =>{
                 console.log(response);
+                router.push({
+                    pathname: '/recipes',
+                    query: {openNotif: true, message: 'Recipe added.'}
+                }, "/recipes")
             })
             .catch((error) =>{
                 console.log(error);
+                router.push({
+                    pathname: '/recipes',
+                    query: {openNotif: true, message: 'Recipe added failed.'}
+                }, "/recipes")
             })
     }
 
