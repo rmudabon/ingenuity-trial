@@ -35,11 +35,12 @@ const Header = () => {
         setAnchorElPages(null);
     }
 
-
+    //Imports user data from sessionStorage, transfers it to userData state to be used in conditional rendering
    useEffect(() => {
         const userDat = JSON.parse(sessionStorage.getItem("user"));
-        setUserData(userDat);
-        console.log(userData.isLoggedin === "false");
+        if(userDat){
+            setUserData(userDat);
+        }
     }, [router.asPath])
 
     return(

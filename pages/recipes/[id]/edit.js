@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from 'react';
 import Link from "next/link";
 
 import Container from '@mui/material/Container';
@@ -15,8 +15,17 @@ const EditRecipe = (props) => {
     const dish = props.props.dish;
 
     //Constants handling ingredients and instructions list
-    const [ingredientList, setIngredientList] = React.useState(dish.ingredients);
-    const [instructionsList, setInstructionsList] = React.useState(dish.instructions);
+    const [ingredientList, setIngredientList] = useState(dish.ingredients);
+    const [instructionsList, setInstructionsList] = useState(dish.instructions);
+    const [userData, setUserData] = useState({isLoggedin: false, name: '', isAdmin: false});
+
+    //Imports user data from sessionStorage, transfers it to userData state to be used in determining admin access.
+    useEffect(() => {
+        const userDat = JSON.parse(sessionStorage.getItem("user"));
+        if(userDat){
+            setUserData(userDat);
+        }
+    }, [])
 
      //Handles change of input form values
     const handleIngredientChange = (e, index) =>{
@@ -58,7 +67,7 @@ const EditRecipe = (props) => {
     const handleSumbitRecipe = (e) => {
         e.preventDefault();
         const recipeTitle = e.target[0].value;
-        const recipeAuthor = "User";
+        const recipeAuthor = dish.author;
         const recipeDesc = e.target[1].value;
         const recipeServings = e.target[3].value;
         const dateCreated = dish.date_created;
@@ -88,6 +97,8 @@ const EditRecipe = (props) => {
     return(
         <Container maxWidth="lg">
             <Box sx={{margin: 'auto', width: "100%", padding: 4}}>
+                {/* Checks for admin access before loading form, returns Permission Denied if false */}
+                {(userData.isAdmin === "true" || userData.name === dish.author) ? (
                 <Box sx={{
                     margin: 'auto',
                     width: '100%'
@@ -209,7 +220,9 @@ const EditRecipe = (props) => {
                         </Button>
                     </Box>
                     </Box>
-                </Box>
+                </Box> ) : (
+                    <Typography>Sorry! You don't have the proper permissions to access this page.</Typography>
+                ) }
             </Box>
         </Container>
     )

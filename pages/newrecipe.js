@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from 'react';
 import Link from "next/link";
+import { useRouter } from 'next/router';
 
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
@@ -11,10 +12,21 @@ import Stack from '@mui/material/Stack';
 import axios from 'axios';
 
 const NewRecipe = () => {
-
+    const router = useRouter();
+    
     //Constants handling ingredients and instructions list
-    const [ingredientList, setIngredientList] = React.useState([""]);
-    const [instructionsList, setInstructionsList] = React.useState([""]);
+    const [ingredientList, setIngredientList] = useState([""]);
+    const [instructionsList, setInstructionsList] = useState([""]);
+    const [userData, setUserData] = useState({isLoggedin: false, name: '', isAdmin: false});
+
+    
+    //Imports user data from sessionStorage, transfers it to userData state to be used in writing the author of the recipe
+    useEffect(() => {
+    const userDat = JSON.parse(sessionStorage.getItem("user"));
+        if(userDat){
+            setUserData(userDat);
+        }
+    }, [])
 
      //Handles change of input form values
     const handleIngredientChange = (e, index) =>{
@@ -65,7 +77,7 @@ const NewRecipe = () => {
         const instrucList = [...instructionsList];
         const recipe = {
             title: recipeTitle,
-            author: recipeAuthor,
+            author: userData.name,
             description: recipeDesc,
             servings: recipeServings,
             date_created: dateCreated,

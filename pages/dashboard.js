@@ -15,8 +15,9 @@ const Dashboard = () => {
 
     useEffect(() => {
         const userDat = JSON.parse(sessionStorage.getItem("user"));
-        setUserData(userDat);
-        console.log(userData.isLoggedin === "false");
+        if(userDat){
+            setUserData(userDat);
+        }
     }, [])
 
     return(
@@ -70,7 +71,7 @@ const Dashboard = () => {
                                 </Typography>
                             </CardContent>
                             <CardActions>
-                                <Link href="#" passHref>
+                                <Link href="/newrecipe" passHref>
                                     <Button size="small">Go Now</Button>
                                 </Link>
                             </CardActions>

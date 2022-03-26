@@ -36,6 +36,21 @@
         "Mix and server"
       ],
       "id": 3
+    },
+    {
+      "title": "Cheezy",
+      "author": "Admin",
+      "description": "Test Description",
+      "servings": "5",
+      "date_created": "2022-03-26T12:11:07.278Z",
+      "date_updated": "2022-03-26T12:11:07.278Z",
+      "ingredients": [
+        "Es"
+      ],
+      "instructions": [
+        "Dummy Inst"
+      ],
+      "id": 4
     }
   ]
 }
