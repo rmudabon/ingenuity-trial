@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
+// Material UI packages
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -8,23 +9,25 @@ import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 
 export default function Home() {
-
-  const [user, setUser] = useState({isLoggedin: 'false', name: '', isAdmin: 'false'})
+  //State regarding user information
+  const [user, setUser] = useState({isLoggedin: false, name: '', isAdmin: false})
 
   const router = useRouter();
 
+  //Event handlers for entering the website as user or admin
   const handleUserLogin = () => {
-    setUser({isLoggedin: 'true', name: 'User', isAdmin: 'false'})
+    setUser({isLoggedin: 'true', name: 'User', isAdmin: 'false'});
     console.log('Signed in as user!');
     router.push("/dashboard");
   }
 
   const handleAdminLogin = () => {
-    setUser({isLoggedin: 'true', name: 'Admin', isAdmin: 'true'})
+    setUser({isLoggedin: 'true', name: 'Admin', isAdmin: 'true'});
     console.log('Signed in as admin!');
     router.push("/dashboard");
   }
 
+   //Imports user data from sessionStorage, transfers it to userData state to be used in conditional rendering
   useEffect(() =>{
     const userObject = JSON.stringify(user);
     sessionStorage.setItem('user', userObject);

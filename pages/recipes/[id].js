@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
+//Material UI components
 import Button from '@mui/material/Button';
 import Typography from "@mui/material/Typography";
 import Container from '@mui/material/Container';
@@ -13,23 +14,29 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+// axios
 import axios from 'axios';
 
 const Recipe = (props) => {
     const router = useRouter();
     
+    //Dish data
     const dish = props.props.dish;
     const date_updated = new Date(dish.date_updated);
 
+    //States for managing user data and handling opening/closing of delete prompt
     const [openDeleteAlert, setOpenDeleteAlert] = useState(false);
     const [userData, setUserData] = useState({isLoggedin: false, name: '', isAdmin: false});
 
+    //Imports user data from sessionStorage, transfers it to userData state to be used in conditional rendering
     useEffect(() => {
         const userDat = JSON.parse(sessionStorage.getItem("user"));
         if(userDat){
             setUserData(userDat);
         }
     }, [])
+
+    //Event handlers for opening or closing delete prompt
     const handleOpenDeleteAlert = () => {
         setOpenDeleteAlert(true);
     }
@@ -38,11 +45,14 @@ const Recipe = (props) => {
         setOpenDeleteAlert(false);
     }
 
+     //Handles deleting of current dish displayed
     const handleDelete = () => {
+        //Deleting recipe through axios DELETE to json-server mock API (address at localhost:4000/id)
         axios.delete(`http://localhost:4000/dishes/${dish.id}`)
             .then((response) =>{
                 console.log(response);
                 router.push({
+                    //Goes back to recipe list, with success notification message
                     pathname: '/recipes',
                     query: {openNotif: true, message: 'Recipe deleted.'}
                 }, "/recipes")
@@ -50,6 +60,7 @@ const Recipe = (props) => {
             .catch((error) => {
                 console.log(error);
                 router.push({
+                    //Goes back to recipe list, with error notification message
                     pathname: '/recipes',
                     query: {openNotif: true, message: 'Recipe deletion failed.'}
                 }, "/recipes")
@@ -59,12 +70,15 @@ const Recipe = (props) => {
     return(
         <Container maxWidth="lg">
             <Box sx={{margin: 'auto', width: '100%', padding: 4}}>
+                {/*Dish Title and Author */}
                 <Typography variant="h4" paddingY={2} component="div" textAlign='center' sx={{fontWeight: "bold"}}>{dish.title}</Typography>
                 <Typography variant="body2" marginBottom={2}>By {dish.author}</Typography>
                 <Typography variant="body2" marginBottom={2}>Last Updated on: {date_updated.toDateString()} </Typography>
                 <Divider/>
+                {/*Dish Description */}
                     <Typography variant="p" component="div" marginY={4}>{dish.description}</Typography>
                 <Divider/>
+                {/*Dish Ingredients */}
                     <Typography variant="h5" component="div" marginY={4} textAlign='center'>Ingredients</Typography>
                     <ul>
                     {dish.ingredients.map((ingredient, index) =>(
@@ -73,8 +87,10 @@ const Recipe = (props) => {
                         </li>
                     ))}
                     </ul>
+                {/*Serving Size */}
                     <Typography variant="body1" component="div" marginY={4}>Servings: {dish.servings}</Typography>
                 <Divider/>
+                {/*Dish Instructions */}
                     <Typography variant="h5" component="div" marginY={4} textAlign='center'>Instructions</Typography>
                     <ol>
                         {dish.instructions.map((instruction, index) =>(
@@ -83,6 +99,7 @@ const Recipe = (props) => {
                             </li>
                         ))}
                     </ol>
+                {/*Buttons for Updating or Deleting the reciple, requires Admin access or same author name as dish */}
                 {(userData.isAdmin === "true" || userData.name === dish.author) ? 
                 (<React.Fragment>
                     <Stack direction={{xs: 'column', md: 'row'}} spacing={2} justifyContent="center">
@@ -96,6 +113,7 @@ const Recipe = (props) => {
                         </Link>
                         <Button variant="outlined" color="error" onClick={handleOpenDeleteAlert}>Delete Recipe</Button>
                     </Stack>
+                    {/*Delete Recipe Prompt */}
                     <Dialog
                         open={openDeleteAlert}
                         onCLose={handleCloseDeleteAlert}

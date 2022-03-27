@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Link from "next/link";
 
+// Material UI Components
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -18,20 +19,24 @@ import Snackbar from '@mui/material/Snackbar';
 
 const RecipeList = (props) => {
     const router = useRouter();
+    //States for managing snackbar messages
     const msg = router.query.message;
     const openStatus = router.query.openNotif;
     const [message, setMessage] = useState("");
     const [open, setOpen] = useState(false);
 
+    //Imports user data from sessionStorage, transfers it to userData state to be used in conditional rendering
     useEffect(() => {
         setMessage(msg);
         setOpen(openStatus);
     }, [router.asPath]);
     
+    //Event handler for closing snackbar notifications
     const handleNotificationClose = () => {
         setOpen(false);
     }
 
+    //Part of the snackbar MUI component that adds a close icon for closing the notification
     const action = (
         <IconButton
             size="small"
@@ -42,9 +47,11 @@ const RecipeList = (props) => {
             <Close fontSize="small"/>
         </IconButton>
     )
+
     return(
         <Container maxWidth="lg">
             <Box sx={{margin: 'auto', width: "100%", padding: 4}}>
+                {/*Page Title*/}
                 <Typography variant="h4" paddingY={4}>All Recipes</Typography>
                 <Grid container spacing={2} justifyContent="center">
                     {/*Mapping of individual dish to cards*/}
@@ -77,6 +84,7 @@ const RecipeList = (props) => {
                     ))}
                 </Grid>
                 <Link href="/newrecipe" passHref>
+                    {/*Desktop Floating Action Button that sticks to the lower right portion of the window*/}
                     <Fab 
                         variant="extended" 
                         color="primary" 
@@ -93,6 +101,7 @@ const RecipeList = (props) => {
                     </Fab>
                 </Link>
                 <Link href="/newrecipe" passHref>
+                    {/*Mobile Floating Action Button that sticks to the lower right portion of the window*/}
                     <Fab 
                         color="primary" 
                         aria-label="add" 
@@ -106,6 +115,7 @@ const RecipeList = (props) => {
                         <Add/>
                     </Fab>
                 </Link>
+                {/*Snackbar Notification that informs users the status of actions (add/edit/delete)*/}
                 <Snackbar
                 open={open}
                 autoHideDuration={4000}

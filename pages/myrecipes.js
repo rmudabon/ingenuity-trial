@@ -36,7 +36,7 @@ const MyRecipeList = (props) => {
             <Box sx={{margin: 'auto', width: "100%", padding: 4}}>
                 <Typography variant="h4" paddingY={4}>My Recipes</Typography>
                 <Grid container spacing={2} justifyContent="center">
-                    {/*Mapping of individual dishes to cards*/}
+                    {/*Mapping of individual dishes to cards, only shows recipes made by the user*/}
                     {myRecipes.map((dish) => (
                         <Grid key={dish.id} item md={4}>
                             <Card elevation={3} sx={{ minWidth: 200, maxWidth: 300}}>
@@ -66,6 +66,7 @@ const MyRecipeList = (props) => {
                     ))}
                 </Grid>
                 <Link href="/newrecipe" passHref>
+                {/*Desktop Floating Action Button that sticks to the lower right portion of the window*/}
                     <Fab 
                         variant="extended" 
                         color="primary" 
@@ -82,6 +83,7 @@ const MyRecipeList = (props) => {
                     </Fab>
                 </Link>
                 <Link href="/newrecipe" passHref>
+                {/*Mobile Floating Action Button that sticks to the lower right portion of the window*/}
                     <Fab 
                         color="primary" 
                         aria-label="add" 

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Link from "next/link";
 
+//Material UI components
 import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
@@ -15,6 +16,7 @@ const AvatarMenu = (props) => {
     const [anchorElUserSettings, setAnchorElUserSettings] = useState(null);
     const open_settings = Boolean(anchorElUserSettings);
 
+    //Event handlers of opening and closing of user settings
     const handleOpenUserSettingsMenu = (event) => {
         setAnchorElUserSettings(event.currentTarget);
     }
@@ -48,7 +50,7 @@ const AvatarMenu = (props) => {
                 onClose={handleCloseUserSettingsMenu}
             >
                 {user_settings.map((setting) => (
-                    <MenuItem key={setting}>
+                    <MenuItem key={setting} onClick={props.handleLogOut}>
                         <Typography textAlign="center">{setting}</Typography>
                     </MenuItem>
                 ))}

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
+//Material UI components
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -19,7 +20,7 @@ const EditRecipe = (props) => {
     const [instructionsList, setInstructionsList] = useState(dish.instructions);
     const [userData, setUserData] = useState({isLoggedin: false, name: '', isAdmin: false});
 
-    //Imports user data from sessionStorage, transfers it to userData state to be used in determining admin access.
+    //Imports user data from sessionStorage, transfers it to userData state to be used in determining admin/user access and editing of the recipe.
     useEffect(() => {
         const userDat = JSON.parse(sessionStorage.getItem("user"));
         if(userDat){
@@ -46,17 +47,17 @@ const EditRecipe = (props) => {
         setIngredientList(ingredList);
     };
 
-    //Handles adding of new ingredient input forms
+    //Handles adding of new instruction input forms
     const handleAddInstructions = () => {
         setInstructionsList([...instructionsList, ""]);
     };
-    //Handles removing of ingredient input forms
+    //Handles removing of instruction input forms
     const handleRemoveInstructions = (index) => {
         const instrucList = [...instructionsList];
         instrucList.splice(index, 1);
         setInstructionsList(instrucList);
     };
-    
+    //Handles changing of instruction input forms
     const handleInstructionsChange = (e, index) =>{
         const { value }  = e.target;
         const instrucList = [...instructionsList];
@@ -64,16 +65,26 @@ const EditRecipe = (props) => {
         setInstructionsList(instrucList);
     };
 
+    //Handles compiling of information from input forms and submits the whole form as an object through axios POST
     const handleSumbitRecipe = (e) => {
+         //Prevents refreshing of page when form is submitted
         e.preventDefault();
+         //TextField ID = recipeTitle
         const recipeTitle = e.target[0].value;
+        //From userData
         const recipeAuthor = dish.author;
+        //TextField ID = recipeDescription
         const recipeDesc = e.target[1].value;
+        //TextField ID = recipeServings
         const recipeServings = e.target[3].value;
         const dateCreated = dish.date_created;
+        //Date generated from current date of recipe creation
         const dateUpdated = new Date().toISOString();
+         //TextField ID = ingredients${id} (dynamic)
         const ingredList = [...ingredientList];
+        //TextField ID = instructions${id} (dynamic)
         const instrucList = [...instructionsList];
+        //Compiling of above constants as one recipe object
         const recipe = {
             title: recipeTitle,
             author: recipeAuthor,
@@ -84,9 +95,11 @@ const EditRecipe = (props) => {
             ingredients: ingredList,
             instructions: instrucList
         }
+        //Updating recipe through axios PUT to json-server mock API (address at localhost:4000/id)
         axios.put(`http://localhost:4000/dishes/${dish.id}`, recipe)
             .then((response) =>{
                 console.log(response);
+                 //Goes back to recipe list, with success notification message
                 router.push({
                     pathname: '/recipes',
                     query: {openNotif: true, message: 'Recipe updated.'}
@@ -94,6 +107,7 @@ const EditRecipe = (props) => {
             })
             .catch((error) =>{
                 console.log(error);
+                 //Goes back to recipe list, with error notification message
                 router.push({
                     pathname: '/recipes',
                     query: {openNotif: true, message: 'Recipe update failed.'}
@@ -112,6 +126,7 @@ const EditRecipe = (props) => {
                 }}>
                 <Typography variant="h5" marginY={2}>Edit/Update Recipe</Typography>
                 <Divider sx={{marginBottom: 2}}/>
+                {/*Edit Recipe Form*/}
                 <Box
                     component="form" 
                     onSubmit={handleSumbitRecipe}
@@ -123,6 +138,7 @@ const EditRecipe = (props) => {
                     <Typography variant="body" component="div">Please fill in the information down below.</Typography>
                     <Typography variant="h5" paddingY={2} component="div" sx={{fontWeight: 'bold'}}>Basic Information</Typography>
                     <Typography variant="subtitle" paddingY={2} component="div" sx={{fontWeight: 'bold'}} color="red">* - Required</Typography>
+                    {/*Recipe Title*/}
                     <TextField
                         required
                         id="recipeTitle"
@@ -133,6 +149,7 @@ const EditRecipe = (props) => {
                         margin="normal"
                         defaultValue={dish.title}
                     />
+                    {/*Recipe Description*/}
                     <TextField
                         required
                         id="recipeDescription"
@@ -144,6 +161,7 @@ const EditRecipe = (props) => {
                         margin="normal"
                         defaultValue={dish.description}
                         />
+                    {/*Recipe Serving Size*/}
                     <TextField
                         required
                         id="recipeServings"
@@ -157,6 +175,7 @@ const EditRecipe = (props) => {
                     />
                         <Typography variant="h5" paddingY={2} component="div" sx={{fontWeight: 'bold'}}>Ingredients</Typography>
                         <Typography variant="subtitle" paddingY={2} component="div" sx={{fontWeight: 'bold'}} color="red">* - Required</Typography>
+                     {/*Ingredients List, can add more along the way*/}
                     {ingredientList.map((ingredientForm, index) =>(
                         <React.Fragment>
                             <Stack alignItems='center' key={`ingred${index}`} direction={{xs: "column", md: "row"}} spacing={2} sx={{display: {md: 'flex'}}}>
@@ -190,6 +209,7 @@ const EditRecipe = (props) => {
                     ))}
                     <Typography variant="h5" paddingY={2} component="div" sx={{fontWeight: 'bold'}}>Instructions</Typography>
                     <Typography variant="subtitle" paddingY={2} component="div" sx={{fontWeight: 'bold'}} color="red">* - Required</Typography>
+                    {/*Instructions List, can add more along the way*/}
                     {instructionsList.map((instructionForm, index) =>(
                         <React.Fragment>
                             <Stack alignItems='center' key={`instruct${index}`} direction={{xs: "column", md: "row"}} spacing={2} sx={{display: {md: 'flex'}}}>
@@ -222,6 +242,7 @@ const EditRecipe = (props) => {
                         </React.Fragment>
                     ))}
                     <Box paddingY={2}>
+                        {/*Submits the form to be handled by handleSubmitRecipe*/}
                         <Button size="large" variant="contained" type="submit">
                             Update Recipe
                         </Button>

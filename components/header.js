@@ -21,7 +21,8 @@ const Header = () => {
     const router = useRouter();
     //Set hooks for setting display of pages and user settings menus
     const [anchorElPages, setAnchorElPages] = useState(null);
-    const [userData, setUserData] = useState({isLoggedin: false, name: '', isAdmin: false});
+     //State regarding user information
+    const [userData, setUserData] = useState({isLoggedin: 'false', name: '', isAdmin: 'false'});
     //Boolean values that determine if page or settings menu is opened
     const open_page = Boolean(anchorElPages);
     
@@ -35,13 +36,22 @@ const Header = () => {
         setAnchorElPages(null);
     }
 
+    //Handles logging out of the website (Currently Bugged)
+    const handleLogOut = () => {
+        setUserData({isLoggedin: 'false', name: '', isAdmin: 'false'});
+        console.log('Logging out!');
+        router.push("/");
+    }
+
     //Imports user data from sessionStorage, transfers it to userData state to be used in conditional rendering
    useEffect(() => {
         const userDat = JSON.parse(sessionStorage.getItem("user"));
-        if(userDat){
+        if(userDat.isLoggedin === "true"){
             setUserData(userDat);
         }
     }, [router.asPath])
+
+
 
     return(
         <AppBar position="static">
@@ -146,34 +156,7 @@ const Header = () => {
                     </Box>
                     {/* User Settings Menu*/}
                     <Box sx={{flexGrow: 0}}>
-                        {userData.isLoggedin === "true" ? <AvatarMenu name={userData.name}/> : null}
-                        {/* <IconButton onClick={handleOpenUserSettingsMenu}>
-                            <Avatar alt="User" variant="square" sx={{ bgcolor: deepOrange[500]}}>
-                                U
-                            </Avatar>
-                        </IconButton>
-                        <Menu
-                            sx={{mt: '50px'}}
-                            id="menu-settings"
-                            anchorEl={anchorElUserSettings}
-                            anchorOrigin={{
-                                vertical: 'top',
-                                horizontal: 'right'
-                            }}
-                            keepMounted
-                            transformOrigin={{
-                                vertical: 'top',
-                                horizontal: 'right'
-                            }}
-                            open={open_settings}
-                            onClose={handleCloseUserSettingsMenu}
-                        >
-                            {user_settings.map((setting) => (
-                                <MenuItem key={setting}>
-                                    <Typography textAlign="center">{setting}</Typography>
-                                </MenuItem>
-                            ))}
-                        </Menu> */}
+                        {userData.isLoggedin === "true" ? <AvatarMenu name={userData.name} handleLogOut={handleLogOut}/> : null}
                     </Box>
                 </ToolBar>
             </Container>

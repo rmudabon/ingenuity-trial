@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 
+//Material UI components
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Typography from "@mui/material/Typography";
@@ -11,8 +12,10 @@ import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 
 const Dashboard = () => {
+     //State regarding user information
     const [userData, setUserData] = useState({isLoggedin: false, name: '', isAdmin: false});
 
+    //Imports user data from sessionStorage, transfers it to userData state to be used in conditional rendering
     useEffect(() => {
         const userDat = JSON.parse(sessionStorage.getItem("user"));
         if(userDat){

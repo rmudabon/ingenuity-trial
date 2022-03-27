@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
+//Material UI components
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -56,7 +57,8 @@ const NewRecipe = () => {
         instrucList.splice(index, 1);
         setInstructionsList(instrucList);
     };
-    
+
+     //Handles changing of instruction form values
     const handleInstructionsChange = (e, index) =>{
         const { value }  = e.target;
         const instrucList = [...instructionsList];
@@ -64,16 +66,24 @@ const NewRecipe = () => {
         setInstructionsList(instrucList);
     };
 
+    //Handles compiling of information from input forms and submits the whole form as an object through axios POST
     const handleSumbitRecipe = (e) => {
+        //Prevents refreshing of page when form is submitted
         e.preventDefault();
+        //TextField ID = recipeTitle
         const recipeTitle = e.target[0].value;
-        const recipeAuthor = "User";
+        //TextField ID = recipeDescription
         const recipeDesc = e.target[1].value;
+        //TextField ID = recipeServings
         const recipeServings = e.target[3].value;
+        //Dates generated from current date of recipe creation
         const dateCreated = new Date().toISOString();
         const dateUpdated = new Date().toISOString();
+        //TextField ID = ingredients${id} (dynamic)
         const ingredList = [...ingredientList];
+        //TextField ID = instructions${id} (dynamic)
         const instrucList = [...instructionsList];
+        //Compiling of above constants as one recipe object
         const recipe = {
             title: recipeTitle,
             author: userData.name,
@@ -84,9 +94,11 @@ const NewRecipe = () => {
             ingredients: ingredList,
             instructions: instrucList
         }
+        //Adding recipe through axios POST to json-server mock API (address at localhost:4000)
         axios.post('http://localhost:4000/dishes', recipe)
             .then((response) =>{
                 console.log(response);
+                //Goes back to recipe list, with success notification message
                 router.push({
                     pathname: '/recipes',
                     query: {openNotif: true, message: 'Recipe added.'}
@@ -94,6 +106,7 @@ const NewRecipe = () => {
             })
             .catch((error) =>{
                 console.log(error);
+                 //Goes back to recipe list, with error notification message
                 router.push({
                     pathname: '/recipes',
                     query: {openNotif: true, message: 'Recipe added failed.'}
@@ -110,6 +123,7 @@ const NewRecipe = () => {
                 }}>
                 <Typography variant="h5" marginY={2}>New Recipe</Typography>
                 <Divider sx={{marginBottom: 2}}/>
+                {/*New Recipe Form*/}
                 <Box
                     component="form" 
                     onSubmit={handleSumbitRecipe}
@@ -121,6 +135,7 @@ const NewRecipe = () => {
                     <Typography variant="body" component="div">Please fill in the information down below.</Typography>
                     <Typography variant="h5" paddingY={2} component="div" sx={{fontWeight: 'bold'}}>Basic Information</Typography>
                     <Typography variant="subtitle" paddingY={2} component="div" sx={{fontWeight: 'bold'}} color="red">* - Required</Typography>
+                    {/*Recipe Title*/}
                     <TextField
                         required
                         id="recipeTitle"
@@ -130,6 +145,7 @@ const NewRecipe = () => {
                         fullWidth
                         margin="normal"
                     />
+                    {/*Recipe Description*/}
                     <TextField
                         required
                         id="recipeDescription"
@@ -140,6 +156,7 @@ const NewRecipe = () => {
                         fullWidth
                         margin="normal"
                         />
+                    {/*Recipe Serving Size*/}
                     <TextField
                         required
                         id="recipeServings"
@@ -152,6 +169,7 @@ const NewRecipe = () => {
                     />
                         <Typography variant="h5" paddingY={2} component="div" sx={{fontWeight: 'bold'}}>Ingredients</Typography>
                         <Typography variant="subtitle" paddingY={2} component="div" sx={{fontWeight: 'bold'}} color="red">* - Required</Typography>
+                    {/*Ingredients List, can add more along the way*/}
                     {ingredientList.map((ingredientForm, index) =>(
                         <React.Fragment>
                             <Stack alignItems='center' key={`ingred${index}`} direction={{xs: "column", md: "row"}} spacing={2} sx={{display: {md: 'flex'}}}>
@@ -184,6 +202,7 @@ const NewRecipe = () => {
                     ))}
                     <Typography variant="h5" paddingY={2} component="div" sx={{fontWeight: 'bold'}}>Instructions</Typography>
                     <Typography variant="subtitle" paddingY={2} component="div" sx={{fontWeight: 'bold'}} color="red">* - Required</Typography>
+                    {/*Instructions List, can add more along the way*/}
                     {instructionsList.map((instructionForm, index) =>(
                         <React.Fragment>
                             <Stack alignItems='center' key={`instruct${index}`} direction={{xs: "column", md: "row"}} spacing={2} sx={{display: {md: 'flex'}}}>
@@ -215,6 +234,7 @@ const NewRecipe = () => {
                         </React.Fragment>
                     ))}
                     <Box paddingY={2}>
+                         {/*Submits the form to be handled by handleSubmitRecipe*/}
                         <Button size="large" variant="contained" type="submit">
                             Submit Recipe
                         </Button>
