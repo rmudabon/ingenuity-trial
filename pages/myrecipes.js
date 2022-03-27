@@ -13,7 +13,7 @@ import Button from '@mui/material/Button';
 import Add from '@mui/icons-material/Add'
 import Fab from '@mui/material/Fab';
 
-const RecipeList = (props) => {
+const MyRecipeList = (props) => {
     const router = useRouter();
     //State regarding user information
     const [userData, setUserData] = useState({isLoggedin: false, name: '', isAdmin: false});
@@ -120,4 +120,4 @@ export async function getStaticProps(){
     
 }
 
-export default RecipeList
+export default MyRecipeList
