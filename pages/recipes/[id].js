@@ -94,9 +94,11 @@ const Recipe = (props) => {
                     <Typography variant="h5" component="div" marginY={4} textAlign='center'>Instructions</Typography>
                     <ol>
                         {dish.instructions.map((instruction, index) =>(
-                            <li key={index}>
-                            <Typography variant="body2">{instruction}</Typography>
+                            <li key={index} style={{marginBottom: "10px"}}>
+                                <Typography variant="body2" fontWeight="bold">Step {index + 1}:</Typography>
+                                <Typography variant="body2">{instruction}</Typography>
                             </li>
+
                         ))}
                     </ol>
                 {/*Buttons for Updating or Deleting the reciple, requires Admin access or same author name as dish */}

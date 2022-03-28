@@ -22,7 +22,7 @@ const Header = () => {
     //Set hooks for setting display of pages and user settings menus
     const [anchorElPages, setAnchorElPages] = useState(null);
      //State regarding user information
-    const [userData, setUserData] = useState({isLoggedin: 'false', name: '', isAdmin: 'false'});
+    const [userData, setUserData] = useState({isLoggedin: "false", name: '', isAdmin: "false"});
     //Boolean values that determine if page or settings menu is opened
     const open_page = Boolean(anchorElPages);
     
@@ -36,19 +36,14 @@ const Header = () => {
         setAnchorElPages(null);
     }
 
-    //Handles logging out of the website (Currently Bugged)
-    const handleLogOut = () => {
-        setUserData({isLoggedin: 'false', name: '', isAdmin: 'false'});
-        console.log('Logging out!');
-        router.push("/");
-    }
-
     //Imports user data from sessionStorage, transfers it to userData state to be used in conditional rendering
    useEffect(() => {
         const userDat = JSON.parse(sessionStorage.getItem("user"));
-        if(userDat.isLoggedin === "true"){
-            setUserData(userDat);
+        //Exits function if no userData is found at initial load of the website
+        if(userDat == null){
+            return
         }
+        setUserData(userDat);
     }, [router.asPath])
 
 
@@ -103,13 +98,18 @@ const Header = () => {
                                 display: {xs: 'block', md: 'none'}
                             }}
                         >
-                            <Link href="/recipes" passHref>
+                            <Link href="/dashboard" passHref>
                                 <MenuItem key={1} onClick={handleClosePagesMenu}>
+                                    <Typography>Dashboard</Typography> 
+                                </MenuItem>
+                            </Link>
+                            <Link href="/recipes" passHref>
+                                <MenuItem key={2} onClick={handleClosePagesMenu}>
                                     <Typography textAlign="center">Recipes</Typography>
                                 </MenuItem>
                             </Link>
                             <Link href="/myrecipes" passHref>
-                                <MenuItem key={2} onClick={handleClosePagesMenu}>
+                                <MenuItem key={3} onClick={handleClosePagesMenu}>
                                     <Typography textAlign="center">My Recipes</Typography>
                                 </MenuItem>
                             </Link>
@@ -133,6 +133,15 @@ const Header = () => {
                     <Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex'}}}>
                     {userData.isLoggedin === "true" ? (
                         <React.Fragment>
+                        <Link href="/dashboard" passHref>
+                            <Button
+                                key={1}
+                                onClick={handleClosePagesMenu}
+                                sx={{my: 2, ml: 2,  color: 'white', display: 'block'}}
+                            >
+                                <Typography>Dashboard</Typography> 
+                            </Button>
+                        </Link>
                         <Link href="/recipes" passHref>
                             <Button
                                 key={1}
@@ -156,7 +165,7 @@ const Header = () => {
                     </Box>
                     {/* User Settings Menu*/}
                     <Box sx={{flexGrow: 0}}>
-                        {userData.isLoggedin === "true" ? <AvatarMenu name={userData.name} handleLogOut={handleLogOut}/> : null}
+                        {userData.isLoggedin === "true" ? <AvatarMenu name={userData.name}/> : null}
                     </Box>
                 </ToolBar>
             </Container>

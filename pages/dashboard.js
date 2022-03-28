@@ -28,7 +28,9 @@ const Dashboard = () => {
             <Box sx={{margin: 'auto', width: '100%', padding: 4}}>
                 <Typography variant="h4">Welcome back, {userData.name}!</Typography>
                 <Typography variant="h5" sx={{mt: 5, mb: 5}}>What will you do today?</Typography>
+                {/*Grid containing the Add Recipe, My Recipes, and Recipe List cards*/}
                 <Grid container spacing={2} justifyContent="center">
+                    {/*Recipe List*/}
                     <Grid item md={4}>
                         <Card elevation={3} sx={{ maxWidth: 300}}>
                             <CardContent>
@@ -46,6 +48,7 @@ const Dashboard = () => {
                             </CardActions>
                         </Card>
                     </Grid>
+                     {/*My Recipes*/}
                     <Grid item md={4}>
                         <Card elevation={3} sx={{ maxWidth: 300 }}>
                             <CardContent>
@@ -63,6 +66,7 @@ const Dashboard = () => {
                             </CardActions>
                         </Card>
                     </Grid>
+                     {/*Add Recipe*/}
                     <Grid item md={4}>
                         <Card elevation={3} sx={{ maxWidth: 300}}>
                             <CardContent>

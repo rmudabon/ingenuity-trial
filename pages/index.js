@@ -10,7 +10,7 @@ import ButtonGroup from '@mui/material/ButtonGroup';
 
 export default function Home() {
   //State regarding user information
-  const [user, setUser] = useState({isLoggedin: false, name: '', isAdmin: false})
+  const [user, setUser] = useState({isLoggedin: "false", name: "", isAdmin: "false"})
 
   const router = useRouter();
 
@@ -39,6 +39,7 @@ export default function Home() {
           <Box sx={{ display: "flex", flexDirection: "column", margin: "auto", width: "100%", height: "100%"}} justifyContent="center" alignItems="center">
             <Typography variant="h3" paddingY={4} textAlign="center" component="div">Recipe DB Trial Project</Typography>
             <ButtonGroup orientation="vertical">
+               {/*User and Admin Login Buttons*/}
               <Button variant="outlined" color="primary" onClick={handleUserLogin}>Sign in as user</Button>
               <Button variant="outlined" color="primary" onClick={handleAdminLogin}>Sign in as admin</Button>
             </ButtonGroup>

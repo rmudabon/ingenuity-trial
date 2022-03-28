@@ -1,131 +1,60 @@
 {
   "dishes": [
     {
-      "id": 2,
+      "id": 1,
       "title": "Spaghetti",
-      "author": "User 2",
-      "description": "Lorem ipsum Dolores",
+      "author": "User",
+      "description": "This Carbonara Recipe Filipino Style is a winner. It is a good dish that you can prepare for Noche Buena for many reasons. It is rich, creamy, and delicious. It is quick and easy to cook too. It took me around 30 minutes to complete the dish. You should try making this for the Holidays. - Panlasang Pinoy",
       "servings": 4,
       "date_created": "2022-03-25",
       "date_updated": "2022-03-25",
       "ingredients": [
-        "Pasta",
-        "Tomatoes",
-        "Cream"
+        "3/4 lb. spaghetti",
+        "1 piece Knorr beef cube",
+        "7 strips bacon",
+        "15 ounces all-purpose cream",
+        "6 tablespoons grated Parmesan cheese",
+        "1 piece yellow onion chopped",
+        "2 cloves garlic minced",
+        "1/8 teaspoon ground nutmeg",
+        "1 teaspoon salt",
+        "2 quarts water"
       ],
       "instructions": [
-        "Heat pasta water",
-        "Saute pancetta/bacon and garlic",
-        "Beat eggs and half of the cheese",
-        "Cook pasta",
-        "Toss pasta with pancetta/bacon",
-        "Add the beaten egg mixture"
+        "Cook the bacon until crispy. Do this by placing each strip in a pan. Cook in medium heat for 2 minutes. Flip the bacon and cook the opposite side for another 2 minutes. Continue performing the same steps until each piece gets crispy. Set aside. Save the bacon grease.",
+        "Cook the spaghetti by pouring water in a cooking pot. Let boil. Add salt and put the spaghetti into the pot. Cook for 12 minutes or until al dente. Remove the spaghetti Set aside. Save ¼ cup of water used to cook spaghetti.",
+        "Prepare the carbonara sauce by heating 3 tablespoons of bacon grease. Saute onion and garlic.",
+        "One the onion softens, pour all-purpose cream into the pan. Stir. Add 1/4 cup water.",
+        "Add Knorr Beef Cube. Stir until well blended.",
+        "Put chopped bacon and nutmeg into the sauce. Stir.",
+        "Add the cooked spaghetti. Toss until spaghetti gets totally coated with sauce.",
+        "Add Parmesan cheese. Toss. Add more bacon.",
+        "Transfer to a serving plate. Serve and enjoy!"
       ]
     },
     {
-      "title": "Fetuccine",
-      "author": "User",
-      "description": "Yes",
-      "servings": "2",
-      "date_created": "2022-03-24T13:56:19.338Z",
-      "date_updated": "2022-03-24T13:56:19.338Z",
-      "ingredients": [
-        "4 cups of sugar"
-      ],
-      "instructions": [
-        "Mix and server"
-      ],
-      "id": 3
-    },
-    {
-      "title": "Cheezy",
+      "id": 2,
+      "title": "Pancakes",
       "author": "Admin",
-      "description": "Test Description",
-      "servings": "5",
-      "date_created": "2022-03-26T12:11:07.278Z",
-      "date_updated": "2022-03-26T12:11:07.278Z",
+      "description": "Learn a skill for life with our foolproof crêpe recipe that ensures perfect pancakes every time – elaborate flip optional - GoodFood",
+      "servings": 12,
+      "date_created": "2022-03-25",
+      "date_updated": "2022-03-25",
       "ingredients": [
-        "Es"
+        "100g plain flour",
+        "2 large eggs",
+        "300ml milk",
+        "1 tbsp sunflower or vegetable oil, plus a little extra for frying",
+        "lemon wedges to serve (optional)",
+        "caster sugar to serve (optional)"
       ],
       "instructions": [
-        "Dummy Inst"
-      ],
-      "id": 4
-    },
-    {
-      "title": "Test 2",
-      "author": "User",
-      "description": "Test Descr",
-      "servings": "4",
-      "date_created": "2022-03-26T13:39:28.565Z",
-      "date_updated": "2022-03-26T13:39:28.565Z",
-      "ingredients": [
-        "Garlic"
-      ],
-      "instructions": [
-        "Pineapple"
-      ],
-      "id": 5
-    },
-    {
-      "title": "Test 3",
-      "author": "User",
-      "description": "Description 3455",
-      "servings": "2",
-      "date_created": "2022-03-26T13:46:55.220Z",
-      "date_updated": "2022-03-26T13:46:55.220Z",
-      "ingredients": [
-        "Hei"
-      ],
-      "instructions": [
-        "Hoooo"
-      ],
-      "id": 6
-    },
-    {
-      "title": "Test 4 ",
-      "author": "User",
-      "description": "Ders",
-      "servings": "4",
-      "date_created": "2022-03-26T13:47:58.228Z",
-      "date_updated": "2022-03-26T13:47:58.228Z",
-      "ingredients": [
-        "Tsddf"
-      ],
-      "instructions": [
-        "asdsdsd"
-      ],
-      "id": 7
-    },
-    {
-      "title": "Open",
-      "author": "User",
-      "description": "64",
-      "servings": "5",
-      "date_created": "2022-03-26T13:51:15.762Z",
-      "date_updated": "2022-03-26T13:51:15.762Z",
-      "ingredients": [
-        "12323"
-      ],
-      "instructions": [
-        "232323"
-      ],
-      "id": 8
-    },
-    {
-      "title": "Gabi",
-      "author": "User",
-      "description": "Umaga",
-      "servings": "54",
-      "date_created": "2022-03-26T14:01:58.370Z",
-      "date_updated": "2022-03-26T14:10:34.734Z",
-      "ingredients": [
-        "Dasd"
-      ],
-      "instructions": [
-        "sdsdsd"
-      ],
-      "id": 10
+        "Put 100g plain flour, 2 large eggs, 300ml milk, 1 tbsp sunflower or vegetable oil and a pinch of salt into a bowl or large jug, then whisk to a smooth batter.",
+        "Set aside for 30 mins to rest if you have time, or start cooking straight away.",
+        "Set a medium frying pan or crêpe pan over a medium heat and carefully wipe it with some oiled kitchen paper.",
+        "When hot, cook your pancakes for 1 min on each side until golden, keeping them warm in a low oven as you go.",
+        "Serve with lemon wedges and caster sugar, or your favourite filling. Once cold, you can layer the pancakes between baking parchment, then wrap in cling film and freeze for up to 2 months."
+      ]
     }
   ]
 }

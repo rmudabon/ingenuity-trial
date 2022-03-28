@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Link from "next/link";
 
 //Material UI components
@@ -11,7 +11,7 @@ import MenuItem from '@mui/material/MenuItem';
 const AvatarMenu = (props) => {
 
     //Constants for page labels
-    const user_settings = ['Logout'];
+    const user_settings = [props.name];
 
     const [anchorElUserSettings, setAnchorElUserSettings] = useState(null);
     const open_settings = Boolean(anchorElUserSettings);
@@ -50,7 +50,7 @@ const AvatarMenu = (props) => {
                 onClose={handleCloseUserSettingsMenu}
             >
                 {user_settings.map((setting) => (
-                    <MenuItem key={setting} onClick={props.handleLogOut}>
+                    <MenuItem key={setting}>
                         <Typography textAlign="center">{setting}</Typography>
                     </MenuItem>
                 ))}
