@@ -8,7 +8,7 @@ First, install the required packages for this project in your terminal:
 npm install
 ```
 
-Second, run two terminals and run the development server in the first terminal:
+Second, run two terminals and run the development server in the first terminal in port 3000:
 
 ```bash
 npm run dev
@@ -26,6 +26,7 @@ Fourth, open [http://localhost:3000](http://localhost:3000) with your browser to
 
 The application currently has the following functions:
 
+- User/Admin Dashboard
 - Enter the site as Basic User / Admin
 - View Recipes
 - View My Recipes
